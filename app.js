@@ -1,8 +1,9 @@
 const express = require('express');
 const morgan = require('morgan');
 const html = require('html-template-tag');
-
 const app = express();
+const { db } = require('./models');
+
 
 //logging middleware
 app.use(morgan('dev'));
@@ -24,6 +25,11 @@ app.get('/', (req, res) => {
   </body>
   </html>`);
 });
+
+db.authenticate().
+then(() => {
+  console.log('connected to the database');
+})
 
 const PORT = 1337;
 
