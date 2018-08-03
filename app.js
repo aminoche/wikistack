@@ -3,6 +3,8 @@ const morgan = require('morgan');
 const html = require('html-template-tag');
 const app = express();
 const models = require('./models');
+const wikiRouter = require('./routes/wiki');
+const userRouter = require('./routes/user');
 
 //logging middleware
 app.use(morgan('dev'));
@@ -10,9 +12,13 @@ app.use(morgan('dev'));
 app.use(express.static(__dirname));
 // parses url-encoded bodies
 app.use(express.urlencoded({ extended: false }));
+//connecting routes
+app.use('/wiki', wikiRouter);
+// app.use('/user', userRouter);
 
 app.get('/', (req, res) => {
   console.log('Hello world');
+  console.log(req.body)
   res.send(html`<!DOCTYPE html>
   <html>
   <head>
