@@ -2,8 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const html = require('html-template-tag');
 const app = express();
-const { db } = require('./models');
-
+const models = require('./models');
 
 //logging middleware
 app.use(morgan('dev'));
@@ -26,13 +25,17 @@ app.get('/', (req, res) => {
   </html>`);
 });
 
-db.authenticate().
+models.db.authenticate().
 then(() => {
   console.log('connected to the database');
 })
 
-const PORT = 1337;
-
-app.listen(PORT, () => {
+const init = async () => {
+  await models.db.sync({force: true});
+  const PORT = 1337;
+  app.listen(PORT, () => {
   console.log(`App listening in port ${PORT}`);
-});
+  });
+};
+
+init();
