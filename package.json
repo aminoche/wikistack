@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.16.2",
+    "express": "^4.17.3",
     "html-template-tag": "^1.0.0",
     "morgan": "^1.9.0",
     "pg": "^7.4.3",
